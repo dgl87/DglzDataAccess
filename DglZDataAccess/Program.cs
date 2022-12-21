@@ -20,7 +20,8 @@ namespace DglZDataAccess
                 //CreateCategory(connection);
                 //ExecuteProcedure(connection);
                 //ExecuteReadProcedure(connection);
-                ExecuteScalar(connection);
+                //ExecuteScalar(connection);
+                ReadView(connection);
             }
         }
 
@@ -162,7 +163,6 @@ namespace DglZDataAccess
                 Console.WriteLine($"{course.Id} - {course.Title}");
             }
         }
-
         static void ExecuteScalar(SqlConnection connection)
         {
             var category = new Category()
@@ -198,6 +198,15 @@ namespace DglZDataAccess
             });
 
             Console.WriteLine($"A Categoria inserida foi {id}");
+        }
+        static void ReadView(SqlConnection connection)
+        {
+            var sql = "SELECT * FROM [vw_Courses]";
+            var courses = connection.Query(sql);
+            foreach (var item in courses)
+            {
+                Console.WriteLine($"{item.Id} - {item.Title}");
+            }
         }
     }
 }
