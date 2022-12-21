@@ -25,7 +25,8 @@ namespace DglZDataAccess
                 //ExecuteScalar(connection);
                 //ReadView(connection);
                 //OneToOne(connection);
-                OneToMany(connection);
+                //OneToMany(connection);
+                QueryMultiple(connection);
             }
         }
 
@@ -280,5 +281,24 @@ namespace DglZDataAccess
                 }
             }
         }
-    }        
+        static void QueryMultiple(SqlConnection connection)
+        {
+            var query = "SELECT * FROM [Category];" +
+                        "SELECT * FROM [Course]";
+            using (var multi = connection.QueryMultiple(query))
+            {
+                var categories = multi.Read<Category>();
+                var courses = multi.Read<Course>();
+
+                foreach (var category in categories)
+                {
+                    Console.WriteLine(category.Title);
+                }
+                foreach (var course in courses)
+                {
+                    Console.WriteLine(course.Title);
+                }
+            }
+        }
+    }
 }
