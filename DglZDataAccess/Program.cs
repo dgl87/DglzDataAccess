@@ -2,6 +2,7 @@
 using DglZDataAccess.Models;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Data;
 
 namespace DglZDataAccess
 {
@@ -14,9 +15,10 @@ namespace DglZDataAccess
             using (var connection = new SqlConnection(connectionString))
             {
                 //UpdateCategory(connection);
-                CreateManyCategory(connection);
-                ListCategories(connection);
+                //CreateManyCategory(connection);
+                //ListCategories(connection);
                 //CreateCategory(connection);
+                ExecuteProcedure(connection);
             }
         }
 
@@ -133,6 +135,17 @@ namespace DglZDataAccess
                 }
             });
             Console.WriteLine($"{rows} linhas inseridas");
+        }
+
+        static void ExecuteProcedure(SqlConnection connection)
+        {
+            var procedure = "[sp_DeleteStudent]";
+            var prms = new
+            {
+                StudentId = "af4e3c82-2d76-460b-ae58-aa62ec86ecc1"
+            };
+            var affectedRows = connection.Execute(procedure, prms, commandType: CommandType.StoredProcedure);
+            Console.WriteLine($"{affectedRows} linhas afetadas");
         }
     }
 }
