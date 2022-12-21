@@ -1,5 +1,6 @@
-﻿using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using Dapper;
+using DglZDataAccess.Models;
+using Microsoft.Data.SqlClient;
 using System;
 
 namespace DglZDataAccess
@@ -12,19 +13,10 @@ namespace DglZDataAccess
 
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-
-                using (var command = new SqlCommand())
+                var categories = connection.Query<Category>("SELECT [Id], [Title] FROM [Category]");
+                foreach (var category in categories)
                 {
-                    command.Connection = connection;
-                    command.CommandType = CommandType.Text;
-                    command.CommandText = "SELECT [Id], [Title] FROM [Category]";
-
-                    var reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {
-                        Console.WriteLine($"{reader.GetGuid(0)} - {reader.GetString(1)}");
-                    }
+                    Console.WriteLine($"{category.Id} - {category.Title}");
                 }
             }
         }

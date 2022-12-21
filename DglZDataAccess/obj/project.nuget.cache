@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "lw+ebbagO72139pl6HWFKozZeX++juyWxJrckFCyaxvJGWK6VBDAnVG3nQqBHN0XVTCu9I66uYNxw235sPiwFg==",
+  "dgSpecHash": "KBmwI/TwlIwX1udHE3GzrOLfBZxg0vDPBI8YxOTmK8siyZ9ZGdWb+iTfZy+l1Yi/3e1tLmwRCpD9OmRxPFeyeA==",
   "success": true,
   "projectFilePath": "C:\\Users\\dglan\\OneDrive\\Área de Trabalho\\DGLZ\\Balta\\DglZDataAccessApp\\DglZDataAccess\\DglZDataAccess.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\dglan\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\dglan\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\dglan\\.nuget\\packages\\dapper\\2.0.123\\dapper.2.0.123.nupkg.sha512",
     "C:\\Users\\dglan\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\dglan\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\dglan\\.nuget\\packages\\microsoft.data.sqlclient\\5.0.1\\microsoft.data.sqlclient.5.0.1.nupkg.sha512",
