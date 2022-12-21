@@ -10,12 +10,13 @@ namespace DglZDataAccess
         static void Main(string[] args)
         {
             const string connectionString = "Server=localhost,1433;Database=DglZ;User ID=sa;Password=2w3e4r5t!@#;TrustServerCertificate=true";
-            
+
             using (var connection = new SqlConnection(connectionString))
             {
-                UpdateCategory(connection);
+                //UpdateCategory(connection);
+                CreateManyCategory(connection);
                 ListCategories(connection);
-                CreateCategory(connection);
+                //CreateCategory(connection);
             }
         }
 
@@ -64,7 +65,6 @@ namespace DglZDataAccess
 
             Console.WriteLine($"{rows} linhas inseridas");
         }
-
         static void UpdateCategory(SqlConnection connection)
         {
             var updateQuery = "UPDATE [Category] SET [Title]=@title WHERE [Id]=@id";
@@ -74,6 +74,65 @@ namespace DglZDataAccess
                 Title = "Frontend 2021"
             });
             Console.WriteLine($"{rows} registros atualizadas");
+        }
+        static void CreateManyCategory(SqlConnection connection)
+        {
+            var category = new Category()
+            {
+                Id = Guid.NewGuid(),
+                Title = "Amazon AWS",
+                Url = "amazon",
+                Description = "Categoria destinada a serviços do AWS",
+                Order = 8,
+                Summary = "AWS Cloud",
+                Featured = false
+            };
+            var category2 = new Category()
+            {
+                Id = Guid.NewGuid(),
+                Title = "Categoria Nova",
+                Url = "categoria-nova",
+                Description = "Categoria nova",
+                Order = 9,
+                Summary = "Categoria",
+                Featured = true
+            };
+
+            var insertSql = @"INSERT INTO 
+                                [Category] 
+                            VALUES (
+                                @Id, 
+                                @Title, 
+                                @Url, 
+                                @Summary, 
+                                @Order, 
+                                @Description, 
+                                @Featured)";
+
+            var rows = connection.Execute(insertSql, new[]
+            {
+                new
+                {
+                    category.Id,
+                    category.Title,
+                    category.Url,
+                    category.Summary,
+                    category.Order,
+                    category.Description,
+                    category.Featured
+                },
+                new
+                {
+                    category2.Id,
+                    category2.Title,
+                    category2.Url,
+                    category2.Summary,
+                    category2.Order,
+                    category2.Description,
+                    category2.Featured
+                }
+            });
+            Console.WriteLine($"{rows} linhas inseridas");
         }
     }
 }
