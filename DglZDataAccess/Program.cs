@@ -27,7 +27,8 @@ namespace DglZDataAccess
                 //OneToOne(connection);
                 //OneToMany(connection);
                 //QueryMultiple(connection);
-                SelectIn(connection);
+                //SelectIn(connection);
+                Like(connection, "api");
             }
         }
 
@@ -303,7 +304,7 @@ namespace DglZDataAccess
         }
         static void SelectIn(SqlConnection connection)
         {
-            var query = @"SELECT TOP 10 * FROM 
+            var query = @"SELECT * FROM 
                             [career] 
                         WHERE 
                             [Id] 
@@ -317,6 +318,25 @@ namespace DglZDataAccess
                     "e6730d1c-6870-4df3-ae68-438624e04c72"
                 }
             });
+            foreach (var item in items)
+            {
+                Console.WriteLine(item.Title);
+            }
+        }
+        static void Like(SqlConnection connection, string term)
+        {            
+            var query = @"SELECT * FROM 
+                            [Course] 
+                        WHERE 
+                            [Title] 
+                        LIKE 
+                            @exp";
+
+            var items = connection.Query<Course>(query, new
+            {
+                exp = $"%{term}%"
+            });
+
             foreach (var item in items)
             {
                 Console.WriteLine(item.Title);
