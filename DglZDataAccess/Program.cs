@@ -19,7 +19,8 @@ namespace DglZDataAccess
                 //ListCategories(connection);
                 //CreateCategory(connection);
                 //ExecuteProcedure(connection);
-                ExecuteReadProcedure(connection);
+                //ExecuteReadProcedure(connection);
+                ExecuteScalar(connection);
             }
         }
 
@@ -160,6 +161,43 @@ namespace DglZDataAccess
             {
                 Console.WriteLine($"{course.Id} - {course.Title}");
             }
+        }
+
+        static void ExecuteScalar(SqlConnection connection)
+        {
+            var category = new Category()
+            {
+                Title = "Amazon AWS",
+                Url = "amazon",
+                Description = "Categoria destinada a serviços do AWS",
+                Order = 8,
+                Summary = "AWS Cloud",
+                Featured = false
+            };
+
+            var insertSql = @"INSERT INTO 
+                                [Category] 
+                            OUTPUT inserted.[Id]
+                            VALUES (
+                                NEWID(), 
+                                @Title, 
+                                @Url, 
+                                @Summary, 
+                                @Order, 
+                                @Description, 
+                                @Featured)";
+
+            var id = connection.ExecuteScalar<Guid>(insertSql, new
+            {
+                category.Title,
+                category.Url,
+                category.Summary,
+                category.Order,
+                category.Description,
+                category.Featured
+            });
+
+            Console.WriteLine($"A Categoria inserida foi {id}");
         }
     }
 }
