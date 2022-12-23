@@ -14,17 +14,18 @@ namespace BlogApp
             connection.Open();
             //DeleteUser(connection);
             //UpdateUser();
-            CreateUser(connection);
+            //CreateUser(connection);
             ReadUsers(connection);
             //ReadUser(connection);
-            //ReadRoles(connection);
+            ReadRoles(connection);
+            ReadTags(connection);
 
             connection.Close();
         }
 
         public static void ReadUsers(SqlConnection connection)
         {
-            var repository = new UserRepository(connection);
+            var repository = new Repository<User>(connection);
             var users = repository.GetAll();
 
             foreach (var user in users)
@@ -33,7 +34,7 @@ namespace BlogApp
 
         public static void ReadRoles(SqlConnection connection)
         {
-            var repository = new RoleRepository(connection);
+            var repository = new Repository<Role>(connection);
             var roles = repository.GetAll();
             foreach (var role in roles)
             {
@@ -41,9 +42,19 @@ namespace BlogApp
             }
         }
 
+        public static void ReadTags(SqlConnection connection)
+        {
+            var repository = new Repository<Tag>(connection);
+            var tags = repository.GetAll();
+            foreach (var tag in tags)
+            {
+                Console.WriteLine($"{tag.Id} - {tag.Name}");
+            }
+        }
+
         public static void ReadUser(SqlConnection connection)
         {
-            var repository = new UserRepository(connection);
+            var repository = new Repository<User>(connection);
             var user = repository.Get(1);
             Console.WriteLine(user.Name);
         }
@@ -59,7 +70,7 @@ namespace BlogApp
                 Image = "https://",
                 Slug = "cristina"
             };
-            var repository = new UserRepository(connection);
+            var repository = new Repository<User>(connection);
             repository.Create(user);
         }
 
@@ -77,13 +88,13 @@ namespace BlogApp
                 Slug = "cristina"
             };
 
-            var repository = new UserRepository(connection);
+            var repository = new Repository<User>(connection);
             repository.Update(user);
         }
 
         public static void DeleteUser(SqlConnection connection)
         {
-            var repository = new UserRepository(connection);
+            var repository = new Repository<User>(connection);
             repository.Delete(12);
         }
     }

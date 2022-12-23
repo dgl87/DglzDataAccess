@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Dapper.Contrib.Extensions;
+using System;
 using System.Collections.Generic;
 
 namespace BlogApp.Models
 {
+    [Table("[Post]")]
     public class Post
     {
         public Post()
