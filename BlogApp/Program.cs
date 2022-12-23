@@ -1,5 +1,5 @@
 ﻿using BlogApp.Models;
-using Dapper.Contrib.Extensions;
+using BlogApp.Repositories;
 using Microsoft.Data.SqlClient;
 using System;
 
@@ -10,32 +10,45 @@ namespace BlogApp
         private const string STRING_CONNECTION = "Server=localhost,1433;Database=Blog;User ID=sa;Password=2w3e4r5t!@#;TrustServerCertificate=true";
         static void Main(string[] args)
         {
-            //DeleteUser();
+            var connection = new SqlConnection(STRING_CONNECTION);
+            connection.Open();
+            //DeleteUser(connection);
             //UpdateUser();
-            //CreateUser();
-            ReadUsers();
-            //ReadUser();
+            CreateUser(connection);
+            ReadUsers(connection);
+            //ReadUser(connection);
+            //ReadRoles(connection);
+
+            connection.Close();
         }
-        public static void ReadUsers()
+
+        public static void ReadUsers(SqlConnection connection)
         {
-            using (var connection = new SqlConnection(STRING_CONNECTION))
+            var repository = new UserRepository(connection);
+            var users = repository.GetAll();
+
+            foreach (var user in users)
+                Console.WriteLine($"{user.Id} - {user.Name}");
+        }
+
+        public static void ReadRoles(SqlConnection connection)
+        {
+            var repository = new RoleRepository(connection);
+            var roles = repository.GetAll();
+            foreach (var role in roles)
             {
-                var users = connection.GetAll<User>();
-                foreach (var user in users)
-                {
-                    Console.WriteLine($"{user.Id} - {user.Name}");
-                }
+                Console.WriteLine($"{role.Id} - {role.Name}");
             }
         }
-        public static void ReadUser()
+
+        public static void ReadUser(SqlConnection connection)
         {
-            using (var connection = new SqlConnection(STRING_CONNECTION))
-            {
-                var user = connection.Get<User>(1);
-                Console.WriteLine(user.Name);
-            }
+            var repository = new UserRepository(connection);
+            var user = repository.Get(1);
+            Console.WriteLine(user.Name);
         }
-        public static void CreateUser()
+
+        public static void CreateUser(SqlConnection connection)
         {
             var user = new User()
             {
@@ -46,13 +59,12 @@ namespace BlogApp
                 Image = "https://",
                 Slug = "cristina"
             };
-            using (var connection = new SqlConnection(STRING_CONNECTION))
-            {
-                connection.Insert<User>(user);
-                Console.WriteLine("Inserido com sucesso");
-            }
+            var repository = new UserRepository(connection);
+            repository.Create(user);
         }
-        public static void UpdateUser()
+
+
+        public static void UpdateUser(SqlConnection connection)
         {
             var user = new User()
             {
@@ -64,20 +76,15 @@ namespace BlogApp
                 Image = "https://",
                 Slug = "cristina"
             };
-            using (var connection = new SqlConnection(STRING_CONNECTION))
-            {
-                connection.Update<User>(user);
-                Console.WriteLine("Atualizado com sucesso");
-            }
+
+            var repository = new UserRepository(connection);
+            repository.Update(user);
         }
-        public static void DeleteUser()
+
+        public static void DeleteUser(SqlConnection connection)
         {
-            using (var connection = new SqlConnection(STRING_CONNECTION))
-            {
-                var user = connection.Get<User>(5);
-                connection.Delete<User>(user);
-                Console.WriteLine("Exclusão realizada com sucesso");
-            }
+            var repository = new UserRepository(connection);
+            repository.Delete(12);
         }
     }
 }
