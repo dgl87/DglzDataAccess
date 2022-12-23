@@ -15,12 +15,28 @@ namespace BlogApp
             //DeleteUser(connection);
             //UpdateUser();
             //CreateUser(connection);
-            ReadUsers(connection);
+            //ReadUsers(connection);
             //ReadUser(connection);
-            ReadRoles(connection);
-            ReadTags(connection);
+            //ReadRoles(connection);
+            //ReadTags(connection);
+            ReadUsersWithRoles(connection);
 
             connection.Close();
+        }
+
+        public static void ReadUsersWithRoles(SqlConnection connection)
+        {
+            var repository = new UserRepository(connection);
+            var items = repository.GetWithRoles();
+
+            foreach (var item in items)
+            {
+                Console.WriteLine($"{item.Name}");
+                foreach (var role in item.Roles)
+                {
+                    Console.WriteLine($" - {role.Name}");
+                }
+            }
         }
 
         public static void ReadUsers(SqlConnection connection)
@@ -63,12 +79,12 @@ namespace BlogApp
         {
             var user = new User()
             {
-                Name = "Cristina Soto",
-                Email = "cristina@gmail.com",
+                Name = "Mauro Paiva",
+                Email = "mauro@gmail.com",
                 PasswordHash = "Hash",
-                Bio = "Vendedora",
+                Bio = "Funcionário Público",
                 Image = "https://",
-                Slug = "cristina"
+                Slug = "mauro"
             };
             var repository = new Repository<User>(connection);
             repository.Create(user);
