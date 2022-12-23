@@ -5,7 +5,9 @@ VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DglZDataAccess", "DglZDataAccess\DglZDataAccess.csproj", "{74C7E94E-DB29-4361-AC24-EC67CC764799}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogApp", "BlogApp\BlogApp.csproj", "{5BDFA5B6-D720-456F-992F-7DF258ECFE88}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogApp", "BlogApp\BlogApp.csproj", "{5BDFA5B6-D720-456F-992F-7DF258ECFE88}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DesafioApp", "DesafioApp\DesafioApp.csproj", "{60E7D1AB-73FA-4C78-8FB8-4B49668307B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5BDFA5B6-D720-456F-992F-7DF258ECFE88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BDFA5B6-D720-456F-992F-7DF258ECFE88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BDFA5B6-D720-456F-992F-7DF258ECFE88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60E7D1AB-73FA-4C78-8FB8-4B49668307B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60E7D1AB-73FA-4C78-8FB8-4B49668307B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60E7D1AB-73FA-4C78-8FB8-4B49668307B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60E7D1AB-73FA-4C78-8FB8-4B49668307B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
