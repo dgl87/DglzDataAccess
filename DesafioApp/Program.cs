@@ -12,13 +12,13 @@ namespace DesafioApp
         private const string STRING_CONNECTION = "Server=localhost,1433;Database=Blog;User ID=sa;Password=2w3e4r5t!@#;TrustServerCertificate=true";
         static void Main(string[] args)
         {
-            var connection = new SqlConnection(STRING_CONNECTION);
-            connection.Open();
+            Database.Connection = new SqlConnection(STRING_CONNECTION);
+            Database.Connection.Open();
             Load();
             //ReadUsers(connection);
 
             Console.ReadKey();
-            connection.Close();
+            Database.Connection.Close();
         }
         public static void ReadUsers(SqlConnection connection)
         {
